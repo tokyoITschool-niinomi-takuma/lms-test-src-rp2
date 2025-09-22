@@ -56,7 +56,9 @@ public class Case02 {
 		final WebElement loginId = webDriver.findElement(By.name("loginId"));
 		final WebElement password = webDriver.findElement(By.name("password"));
 		final WebElement login = webDriver.findElement(By.className("btn-primary"));
+		loginId.clear();
 		loginId.sendKeys("StudentZZZ555");
+		password.clear();
 		password.sendKeys("StudentAA01");
 		login.click();
 		visibilityTimeout(By.className("error"), 10);
