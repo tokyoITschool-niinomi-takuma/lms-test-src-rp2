@@ -77,6 +77,9 @@ public class Case07 {
 		// TODO ここに追加
 		final List<WebElement> detail = webDriver.findElements(By.cssSelector("input.btn-default[type='submit']"));
 		detail.get(2).click();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = webDriver.getTitle();
+		assertEquals("セクション詳細 | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
 	}
@@ -88,6 +91,8 @@ public class Case07 {
 		// TODO ここに追加
 		final WebElement report = webDriver.findElement(By.cssSelector("input.btn-default[type='submit']"));
 		report.click();
+		String pageTitle = webDriver.getTitle();
+		assertEquals("レポート登録 | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
 	}
@@ -102,6 +107,8 @@ public class Case07 {
 		text.sendKeys("「今日はよく出来ました」");
 		final WebElement submission = webDriver.findElement(By.cssSelector("button.btn-primary"));
 		submission.click();
+		String pageTitle = webDriver.getTitle();
+		assertEquals("セクション詳細 | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
 	}
