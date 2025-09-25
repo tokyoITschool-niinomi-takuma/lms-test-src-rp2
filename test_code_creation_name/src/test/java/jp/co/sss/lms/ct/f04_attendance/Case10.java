@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f04_attendance;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +10,11 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import jp.co.sss.lms.ct.util.WebDriverUtils;
 
 /**
  * 結合テスト 勤怠管理機能
@@ -36,6 +42,11 @@ public class Case10 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 		// TODO ここに追加
+		goTo("http://localhost:8080/lms");
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("ログイン | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -43,6 +54,19 @@ public class Case10 {
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
 		// TODO ここに追加
+		final WebElement loginId = webDriver.findElement(By.name("loginId"));
+		final WebElement password = webDriver.findElement(By.name("password"));
+		final WebElement login = webDriver.findElement(By.className("btn-primary"));
+		loginId.clear();
+		loginId.sendKeys("StudentAA01");
+		password.clear();
+		password.sendKeys("TestCaseAAA001");
+		login.click();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("コース詳細 | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -50,6 +74,15 @@ public class Case10 {
 	@DisplayName("テスト03 上部メニューの「勤怠」リンクから勤怠管理画面に遷移")
 	void test03() {
 		// TODO ここに追加
+		final WebElement attendance = webDriver.findElement(By.linkText("勤怠"));
+		attendance.click();
+		final Alert alert = webDriver.switchTo().alert();
+		alert.accept();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("勤怠情報変更｜LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -57,6 +90,12 @@ public class Case10 {
 	@DisplayName("テスト04 「出勤」ボタンを押下し出勤時間を登録")
 	void test04() {
 		// TODO ここに追加
+		final WebElement go = webDriver.findElement(By.name("punchIn"));
+		go.click();
+		final Alert alert = webDriver.switchTo().alert();
+		alert.accept();
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -64,6 +103,12 @@ public class Case10 {
 	@DisplayName("テスト05 「退勤」ボタンを押下し退勤時間を登録")
 	void test05() {
 		// TODO ここに追加
+		final WebElement out = webDriver.findElement(By.name("punchOut"));
+		out.click();
+		final Alert alert = webDriver.switchTo().alert();
+		alert.accept();
+		getEvidence(new Object() {
+		});
 	}
 
 }
