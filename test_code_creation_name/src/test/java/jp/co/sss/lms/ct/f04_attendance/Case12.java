@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f04_attendance;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +10,12 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+
+import jp.co.sss.lms.ct.util.WebDriverUtils;
 
 /**
  * 結合テスト 勤怠管理機能
@@ -23,6 +30,7 @@ public class Case12 {
 	@BeforeAll
 	static void before() {
 		createDriver();
+		webDriver.manage().window().maximize();
 	}
 
 	/** 後処理 */
@@ -36,6 +44,11 @@ public class Case12 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 		// TODO ここに追加
+		goTo("http://localhost:8080/lms");
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("ログイン | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -43,6 +56,19 @@ public class Case12 {
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
 		// TODO ここに追加
+		final WebElement loginId = webDriver.findElement(By.name("loginId"));
+		final WebElement password = webDriver.findElement(By.name("password"));
+		final WebElement login = webDriver.findElement(By.className("btn-primary"));
+		loginId.clear();
+		loginId.sendKeys("StudentAA01");
+		password.clear();
+		password.sendKeys("TestCaseAAA001");
+		login.click();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("コース詳細 | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -50,6 +76,15 @@ public class Case12 {
 	@DisplayName("テスト03 上部メニューの「勤怠」リンクから勤怠管理画面に遷移")
 	void test03() {
 		// TODO ここに追加
+		final WebElement attendance = webDriver.findElement(By.linkText("勤怠"));
+		attendance.click();
+		final Alert alert = webDriver.switchTo().alert();
+		alert.accept();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("勤怠情報変更｜LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -57,6 +92,13 @@ public class Case12 {
 	@DisplayName("テスト04 「勤怠情報を直接編集する」リンクから勤怠情報直接変更画面に遷移")
 	void test04() {
 		// TODO ここに追加
+		final WebElement edit = webDriver.findElement(By.linkText("勤怠情報を直接編集する"));
+		edit.click();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("勤怠情報変更｜LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -64,6 +106,17 @@ public class Case12 {
 	@DisplayName("テスト05 不適切な内容で修正してエラー表示：出退勤の（時）と（分）のいずれかが空白")
 	void test05() {
 		// TODO ここに追加
+		final Select start = new Select(webDriver.findElement(By.id("startHour0")));
+		start.selectByValue("");
+		final Select end = new Select(webDriver.findElement(By.id("endHour0")));
+		end.selectByValue("");
+		scrollTo("document.body.scrollHeight");
+		final WebElement update = webDriver.findElement(By.name("complete"));
+		update.click();
+		final Alert alert = webDriver.switchTo().alert();
+		alert.accept();
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -71,6 +124,19 @@ public class Case12 {
 	@DisplayName("テスト06 不適切な内容で修正してエラー表示：出勤が空白で退勤に入力あり")
 	void test06() {
 		// TODO ここに追加
+		final Select startHour = new Select(webDriver.findElement(By.id("startHour0")));
+		startHour.selectByValue("");
+		final Select startMinute = new Select(webDriver.findElement(By.id("startMinute0")));
+		startMinute.selectByValue("");
+		final Select end = new Select(webDriver.findElement(By.id("endHour0")));
+		end.selectByValue("18");
+		scrollTo("document.body.scrollHeight");
+		final WebElement update = webDriver.findElement(By.name("complete"));
+		update.click();
+		final Alert alert = webDriver.switchTo().alert();
+		alert.accept();
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -78,6 +144,17 @@ public class Case12 {
 	@DisplayName("テスト07 不適切な内容で修正してエラー表示：出勤が退勤よりも遅い時間")
 	void test07() {
 		// TODO ここに追加
+		final Select startHour = new Select(webDriver.findElement(By.id("startHour0")));
+		startHour.selectByValue("19");
+		final Select startMinute = new Select(webDriver.findElement(By.id("startMinute0")));
+		startMinute.selectByValue("0");
+		scrollTo("document.body.scrollHeight");
+		final WebElement update = webDriver.findElement(By.name("complete"));
+		update.click();
+		final Alert alert = webDriver.switchTo().alert();
+		alert.accept();
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -85,6 +162,19 @@ public class Case12 {
 	@DisplayName("テスト08 不適切な内容で修正してエラー表示：出退勤時間を超える中抜け時間")
 	void test08() {
 		// TODO ここに追加
+		final Select startHour = new Select(webDriver.findElement(By.id("startHour0")));
+		startHour.selectByValue("8");
+		final Select endHour = new Select(webDriver.findElement(By.id("endHour0")));
+		endHour.selectByValue("9");
+		final Select blankTime = new Select(webDriver.findElement(By.name("attendanceList[0].blankTime")));
+		blankTime.selectByValue("180");
+		scrollTo("document.body.scrollHeight");
+		final WebElement update = webDriver.findElement(By.name("complete"));
+		update.click();
+		final Alert alert = webDriver.switchTo().alert();
+		alert.accept();
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -92,6 +182,22 @@ public class Case12 {
 	@DisplayName("テスト09 不適切な内容で修正してエラー表示：備考が100文字超")
 	void test09() {
 		// TODO ここに追加
+		final Select endHour = new Select(webDriver.findElement(By.id("endHour0")));
+		endHour.selectByValue("18");
+		final Select blankTime = new Select(webDriver.findElement(By.name("attendanceList[0].blankTime")));
+		blankTime.selectByValue("");
+		String str = "A".repeat(100);
+		final WebElement remarks = webDriver.findElement(By.name("attendanceList[0].note"));
+		remarks.clear();
+		remarks.sendKeys(str);
+		remarks.sendKeys("Z");
+		scrollTo("document.body.scrollHeight");
+		final WebElement update = webDriver.findElement(By.name("complete"));
+		update.click();
+		final Alert alert = webDriver.switchTo().alert();
+		alert.accept();
+		getEvidence(new Object() {
+		});
 	}
 
 }
