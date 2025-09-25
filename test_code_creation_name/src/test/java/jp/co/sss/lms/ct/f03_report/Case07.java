@@ -107,6 +107,7 @@ public class Case07 {
 		text.sendKeys("「今日はよく出来ました」");
 		final WebElement submission = webDriver.findElement(By.cssSelector("button.btn-primary"));
 		submission.click();
+		visibilityTimeout(By.className("container"), 10);
 		String pageTitle = webDriver.getTitle();
 		assertEquals("セクション詳細 | LMS", pageTitle);
 		getEvidence(new Object() {
