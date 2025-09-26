@@ -1,8 +1,10 @@
 package jp.co.sss.lms.ct.f05_exam;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,6 +13,11 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import jp.co.sss.lms.ct.util.WebDriverUtils;
 
 /**
  * 結合テスト 試験実施機能
@@ -41,6 +48,11 @@ public class Case13 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 		// TODO ここに追加
+		goTo("http://localhost:8080/lms");
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("ログイン | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -48,6 +60,19 @@ public class Case13 {
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
 		// TODO ここに追加
+		final WebElement loginId = webDriver.findElement(By.name("loginId"));
+		final WebElement password = webDriver.findElement(By.name("password"));
+		final WebElement login = webDriver.findElement(By.className("btn-primary"));
+		loginId.clear();
+		loginId.sendKeys("StudentAA01");
+		password.clear();
+		password.sendKeys("TestCaseAAA001");
+		login.click();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("コース詳細 | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -55,6 +80,13 @@ public class Case13 {
 	@DisplayName("テスト03 「試験有」の研修日の「詳細」ボタンを押下しセクション詳細画面に遷移")
 	void test03() {
 		// TODO ここに追加
+		final List<WebElement> dtail = webDriver.findElements(By.cssSelector("input.btn-default[type='submit']"));
+		dtail.get(1).click();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("セクション詳細 | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -62,6 +94,13 @@ public class Case13 {
 	@DisplayName("テスト04 「本日の試験」エリアの「詳細」ボタンを押下し試験開始画面に遷移")
 	void test04() {
 		// TODO ここに追加
+		final List<WebElement> dtail = webDriver.findElements(By.cssSelector("input.btn-default[type='submit']"));
+		dtail.get(0).click();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("試験【ITリテラシー①】 | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -69,6 +108,13 @@ public class Case13 {
 	@DisplayName("テスト05 「試験を開始する」ボタンを押下し試験問題画面に遷移")
 	void test05() {
 		// TODO ここに追加
+		final WebElement testStart = webDriver.findElement(By.cssSelector("input.btn-primary[type='submit']"));
+		testStart.click();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("ITリテラシー① | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -76,6 +122,14 @@ public class Case13 {
 	@DisplayName("テスト06 未回答の状態で「確認画面へ進む」ボタンを押下し試験回答確認画面に遷移")
 	void test06() {
 		// TODO ここに追加
+		scrollTo("document.body.scrollHeight");
+		final WebElement confirmation = webDriver.findElement(By.cssSelector("input.btn-primary[type='submit']"));
+		confirmation.click();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("ITリテラシー① | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -83,6 +137,17 @@ public class Case13 {
 	@DisplayName("テスト07 「回答を送信する」ボタンを押下し試験結果画面に遷移")
 	void test07() throws InterruptedException {
 		// TODO ここに追加
+		scrollTo("document.body.scrollHeight");
+		Thread.sleep(5000);
+		final WebElement sendAnswer = webDriver.findElement(By.id("sendButton"));
+		sendAnswer.click();
+		final Alert alert = webDriver.switchTo().alert();
+		alert.accept();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		assertEquals("ITリテラシー① | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
@@ -90,6 +155,13 @@ public class Case13 {
 	@DisplayName("テスト08 「戻る」ボタンを押下し試験開始画面に遷移後当該試験の結果が反映される")
 	void test08() {
 		// TODO ここに追加
+		scrollTo("document.body.scrollHeight");
+		final WebElement back = webDriver.findElement(By.cssSelector("input.btn-primary[type='submit']"));
+		back.click();
+		visibilityTimeout(By.className("container"), 10);
+		String pageTitle = webDriver.getTitle();
+		assertEquals("試験【ITリテラシー①】 | LMS", pageTitle);
+		getEvidence(new Object() {
+		});
 	}
-
 }
