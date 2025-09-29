@@ -120,42 +120,53 @@ public class Case14 {
 	@DisplayName("テスト06 正答と誤答が半々で「確認画面へ進む」ボタンを押下し試験回答確認画面に遷移")
 	void test06() throws InterruptedException {
 		// TODO ここに追加
-		final List<WebElement> answer = webDriver.findElements(By.cssSelector("input[type='radio']"));
 		//第１問
-		answer.get(0).click();
+		final WebElement answer1 = webDriver.findElement(By.xpath("//*[@id=\"answer-0-3\"]"));
+		answer1.click();
 		scrollBy("400");
 		//第２問
-		answer.get(6).click();
+		final WebElement answer2 = webDriver.findElement(By.xpath("//*[@id=\"answer-1-3\"]"));
+		answer2.click();
 		scrollBy("400");
 		//第３問
-		answer.get(8).click();
+		final WebElement answer3 = webDriver.findElement(By.xpath("//*[@id=\"answer-2-3\"]"));
+		answer3.click();
 		scrollBy("400");
 		//第４問
-		answer.get(15).click();
+		final WebElement answer4 = webDriver.findElement(By.xpath("//*[@id=\"answer-3-3\"]"));
+		answer4.click();
 		scrollBy("400");
 		//第５問
-		answer.get(19).click();
+		final WebElement answer5 = webDriver.findElement(By.xpath("//*[@id=\"answer-4-3\"]"));
+		answer5.click();
 		scrollBy("400");
 		//第６問
-		answer.get(22).click();
+		final WebElement answer6 = webDriver.findElement(By.xpath("//*[@id=\"answer-5-3\"]"));
+		answer6.click();
 		scrollBy("400");
 		//第7問
-		answer.get(27).click();
+		final WebElement answer7 = webDriver.findElement(By.xpath("//*[@id=\"answer-6-3\"]"));
+		answer7.click();
 		scrollBy("400");
 		//第8問
-		answer.get(31).click();
+		final WebElement answer8 = webDriver.findElement(By.xpath("//*[@id=\"answer-7-2\"]"));
+		answer8.click();
 		scrollBy("350");
 		//第9問
-		answer.get(33).click();
+		final WebElement answer9 = webDriver.findElement(By.xpath("//*[@id=\"answer-8-1\"]"));
+		answer9.click();
 		scrollBy("350");
 		//第10問
-		answer.get(37).click();
+		final WebElement answer10 = webDriver.findElement(By.xpath("//*[@id=\"answer-9-1\"]"));
+		answer10.click();
 		scrollBy("350");
 		//第11門
-		answer.get(42).click();
+		final WebElement answer11 = webDriver.findElement(By.xpath("//*[@id=\"answer-10-1\"]"));
+		answer11.click();
 		scrollBy("350");
 		//第12問
-		answer.get(46).click();
+		final WebElement answer12 = webDriver.findElement(By.xpath("//*[@id=\"answer-11-2\"]"));
+		answer12.click();
 		scrollTo("document.body.scrollHeight");
 		final WebElement confirmation = webDriver.findElement(By.cssSelector("input.btn-primary[type='submit']"));
 		confirmation.click();
