@@ -191,12 +191,10 @@ public class Case09 {
 		achievementLevel.sendKeys("5");
 		final WebElement impressions = webDriver.findElement(By.name("contentArray[1]"));
 		impressions.clear();
-		impressions.sendKeys(str);
-		impressions.sendKeys("Z");
+		impressions.sendKeys(str+"Z");
 		final WebElement lookingBack = webDriver.findElement(By.name("contentArray[2]"));
 		lookingBack.clear();
-		lookingBack.sendKeys(str);
-		lookingBack.sendKeys("Z");
+		lookingBack.sendKeys(str+"Z");
 		scrollTo("document.body.scrollHeight");
 		final WebElement submission = webDriver.findElement(By.cssSelector("button.btn-primary[type='submit']"));
 		submission.click();
