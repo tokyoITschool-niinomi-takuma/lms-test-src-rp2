@@ -187,8 +187,7 @@ public class Case12 {
 		String str = "A".repeat(100);
 		final WebElement remarks = webDriver.findElement(By.name("attendanceList[0].note"));
 		remarks.clear();
-		remarks.sendKeys(str);
-		remarks.sendKeys("Z");
+		remarks.sendKeys(str + "Z");
 		scrollTo("document.body.scrollHeight");
 		final WebElement update = webDriver.findElement(By.name("complete"));
 		update.click();
