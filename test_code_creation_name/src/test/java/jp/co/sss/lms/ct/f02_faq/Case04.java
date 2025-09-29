@@ -13,8 +13,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import jp.co.sss.lms.ct.util.WebDriverUtils;
-
 /**
  * 結合テスト よくある質問機能
  * ケース04
@@ -42,7 +40,7 @@ public class Case04 {
 	void test01() {
 		// TODO ここに追加
 		goTo("http://localhost:8080/lms");
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("ログイン | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -62,7 +60,7 @@ public class Case04 {
 		password.sendKeys("TestCaseAAA001");
 		login.click();
 		visibilityTimeout(By.className("container"), 10);
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("コース詳細 | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -78,7 +76,7 @@ public class Case04 {
 		final WebElement help = webDriver.findElement(By.linkText("ヘルプ"));
 		help.click();
 		visibilityTimeout(By.className("panel"), 10);
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("ヘルプ | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -93,7 +91,7 @@ public class Case04 {
 		question.click();
 		Object[] windowHandles = webDriver.getWindowHandles().toArray();
 		webDriver.switchTo().window((String) windowHandles[1]);
-		String transitionTitle = WebDriverUtils.webDriver.getTitle();
+		String transitionTitle = webDriver.getTitle();
 		assertEquals("よくある質問 | LMS", transitionTitle);
 		getEvidence(new Object() {
 		});

@@ -15,8 +15,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import jp.co.sss.lms.ct.util.WebDriverUtils;
-
 /**
  * 結合テスト 勤怠管理機能
  * ケース12
@@ -45,7 +43,7 @@ public class Case12 {
 	void test01() {
 		// TODO ここに追加
 		goTo("http://localhost:8080/lms");
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("ログイン | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -65,7 +63,7 @@ public class Case12 {
 		password.sendKeys("TestCaseAAA001");
 		login.click();
 		visibilityTimeout(By.className("container"), 10);
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("コース詳細 | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -81,7 +79,7 @@ public class Case12 {
 		final Alert alert = webDriver.switchTo().alert();
 		alert.accept();
 		visibilityTimeout(By.className("container"), 10);
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("勤怠情報変更｜LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -95,7 +93,7 @@ public class Case12 {
 		final WebElement edit = webDriver.findElement(By.linkText("勤怠情報を直接編集する"));
 		edit.click();
 		visibilityTimeout(By.className("container"), 10);
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("勤怠情報変更｜LMS", pageTitle);
 		getEvidence(new Object() {
 		});

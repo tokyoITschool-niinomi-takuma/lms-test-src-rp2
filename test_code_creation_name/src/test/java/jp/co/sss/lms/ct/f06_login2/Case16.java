@@ -13,8 +13,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import jp.co.sss.lms.ct.util.WebDriverUtils;
-
 /**
  * 結合テスト ログイン機能②
  * ケース16
@@ -42,7 +40,7 @@ public class Case16 {
 	void test01() {
 		// TODO ここに追加
 		goTo("http://localhost:8080/lms");
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("ログイン | LMS", pageTitle);
 		getEvidence(new Object() {
 		});

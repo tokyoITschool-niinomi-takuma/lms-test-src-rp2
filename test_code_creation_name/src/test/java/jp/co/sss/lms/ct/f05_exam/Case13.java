@@ -17,8 +17,6 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import jp.co.sss.lms.ct.util.WebDriverUtils;
-
 /**
  * 結合テスト 試験実施機能
  * ケース13
@@ -49,7 +47,7 @@ public class Case13 {
 	void test01() {
 		// TODO ここに追加
 		goTo("http://localhost:8080/lms");
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("ログイン | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -69,7 +67,7 @@ public class Case13 {
 		password.sendKeys("TestCaseAAA001");
 		login.click();
 		visibilityTimeout(By.className("container"), 10);
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("コース詳細 | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -83,7 +81,7 @@ public class Case13 {
 		final List<WebElement> dtail = webDriver.findElements(By.cssSelector("input.btn-default[type='submit']"));
 		dtail.get(1).click();
 		visibilityTimeout(By.className("container"), 10);
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("セクション詳細 | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -97,7 +95,7 @@ public class Case13 {
 		final List<WebElement> dtail = webDriver.findElements(By.cssSelector("input.btn-default[type='submit']"));
 		dtail.get(0).click();
 		visibilityTimeout(By.className("container"), 10);
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("試験【ITリテラシー①】 | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -111,7 +109,7 @@ public class Case13 {
 		final WebElement testStart = webDriver.findElement(By.cssSelector("input.btn-primary[type='submit']"));
 		testStart.click();
 		visibilityTimeout(By.className("container"), 10);
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("ITリテラシー① | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -126,7 +124,7 @@ public class Case13 {
 		final WebElement confirmation = webDriver.findElement(By.cssSelector("input.btn-primary[type='submit']"));
 		confirmation.click();
 		visibilityTimeout(By.className("container"), 10);
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("ITリテラシー① | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
@@ -144,7 +142,7 @@ public class Case13 {
 		final Alert alert = webDriver.switchTo().alert();
 		alert.accept();
 		visibilityTimeout(By.className("container"), 10);
-		String pageTitle = WebDriverUtils.webDriver.getTitle();
+		String pageTitle = webDriver.getTitle();
 		assertEquals("ITリテラシー① | LMS", pageTitle);
 		getEvidence(new Object() {
 		});
